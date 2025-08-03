@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Define the Todo schema
 const todoSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -10,14 +11,18 @@ const todoSchema = new mongoose.Schema({
         default: false
     }
 });
+
+// Create the Todo model separately
+const Todo = mongoose.model("Todo", todoSchema);
+
+// Define the Task schema
 const taskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
     description: {
-        type: String,
-       
+        type: String
     },
     priority: {
         type: String,
@@ -26,27 +31,27 @@ const taskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Pending", "In-progress", "Completed"],
+        enum: ["Pending", "In Progress", "Completed"],
         default: "Pending"
     },
     dueDate: {
         type: Date,
         required: true
     },
-    assignedTo: {
+    assignedTo: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-         
-    },
-    createdBY: {
+        required: true
+    }],
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-       
+        ref: "User"
     },
     attachments: [{
         type: String
     }],
-    todoChecklist: [todoSchema], // Embedding todo schema for checklist items
+    // Embed todo items inside the Task
+    todoChecklist: [todoSchema],
     progress: {
         type: Number,
         default: 0,
@@ -57,11 +62,11 @@ const taskSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-}
-     , { timestamps: true } // Automatically manage createdAt and updatedAt fields  
-     );
+}, { timestamps: true });
 
-const Todo = mongoose.model("Todo", todoSchema);
+// Create the Task model
 const Task = mongoose.model("Task", taskSchema);
 
-module.exports = { Todo, Task };
+// Export both models
+module.exports = { Task, Todo };
+
