@@ -16,3 +16,19 @@ body{
 }
 
 }
+
+.input-box {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+.card {
+  @apply bg-white shadow-md rounded-lg p-6 mb-4;
+}
+.card-btn {
+  @apply bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors;
+}
+.form-card{
+  @apply bg-white shadow-md rounded-lg p-6 mb-4 shadow-gray-100 border border-gray-200/50;
+}
+.form-input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
