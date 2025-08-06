@@ -1,25 +1,16 @@
 import React from "react";
-import Navbar from "./Navbar"; // ✅ Make sure path is correct
-import SideMenu from "./SideMenu"; // ✅ Make sure path is correct
+import Navbar from "./Navbar";
 
 const DashboardLayout = ({ children, activeMenu }) => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Top Navbar */}
+    <div className="min-h-screen bg-gray-100">
+      {/* Top Navbar - handles all sidebar logic */}
       <Navbar activeMenu={activeMenu} />
 
-      {/* Sidebar + Main Content */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className="w-60 bg-white border-r border-gray-200">
-          <SideMenu activeMenu={activeMenu} />
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-4 overflow-auto">
-          {children}
-        </main>
-      </div>
+      {/* Main Content - adjusted for desktop sidebar */}
+      <main className="lg:ml-64 p-4 pt-6">
+        {children}
+      </main>
     </div>
   );
 };

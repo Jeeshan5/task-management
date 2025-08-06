@@ -7,13 +7,12 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { UserContext } from '../../context/userContext';
 
-
 const Login = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState(null);
   const { updateUser } = React.useContext(UserContext);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -65,9 +64,11 @@ const Login = () => {
 
   return (
     <AuthLayout>
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 p-10 rounded-2xl shadow-2xl mx-auto animate-fade-in transition-all duration-300 ease-in-out">
-        <h2 className="text-4xl font-extrabold text-center text-gray-800 dark:text-white mb-3">Welcome Back!</h2>
-        <p className="text-center text-md text-gray-500 dark:text-gray-400 mb-8">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 px-4 sm:px-10 py-10 rounded-2xl shadow-2xl mx-auto animate-fade-in transition-all duration-300 ease-in-out mt-10 sm:mt-20">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-800 dark:text-white mb-3">
+          Welcome Back!
+        </h2>
+        <p className="text-center text-sm sm:text-md text-gray-500 dark:text-gray-400 mb-8">
           Please enter your credentials to access your account.
         </p>
 

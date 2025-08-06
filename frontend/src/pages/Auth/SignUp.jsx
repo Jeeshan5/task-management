@@ -15,16 +15,15 @@ const SignUp = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [adminInviteToken, setAdminInviteToken] = React.useState('');
-
   const [error, setError] = React.useState(null);
 
   const { updateUser } = useContext(UserContext);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    let profileImageUrl = ''; 
+    let profileImageUrl = '';
 
     if (!fullname || !email || !password) {
       setError('Please fill all required fields.');
@@ -36,61 +35,56 @@ const SignUp = () => {
       return;
     }
 
-    setError("");
-     //sign up API call
-   try {
+    setError('');
 
-    //upload profile picture if provided
-    if (profilePic) {
-      const imgUploadRes = await uploadImage(profilePic);
-      profileImageUrl = imgUploadRes.imageUrl || "";
+    try {
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || '';
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullname,
+        email,
+        password,
+        profileImageUrl,
+        adminInviteToken,
+      });
+
+      const { token, role } = response.data;
+
+      if (token) {
+        localStorage.setItem('token', token);
+        updateUser(response.data);
+
+        if (role === 'admin') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/user/dashboard');
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
     }
-
-    const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
-      name: fullname,
-      email,
-      password,
-      profileImageUrl,
-      adminInviteToken,
-     
-  });
-
-  const { token, role } = response.data;
-
-  if (token) {
-    localStorage.setItem("token", token);
-    updateUser(response.data);
-    
-    // Redirect based on role
-    if (role === "admin") {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/user/dashboard");
-    }
-  }
-   } catch (error) {
-  if (error.response && error.response.data.message) {
-    setError(error.response.data.message);
-  } else {
-    setError("Something went wrong. Please try again.");
-  }
-   }
-
   };
 
   return (
     <AuthLayout>
-      <div className="w-full max-w-xl mx-auto">
-        {/* Top Left Heading */}
-        
+      <div className="w-full px-4 sm:px-6 md:px-8 max-w-xl mx-auto mt-10 sm:mt-16">
+        <div className="bg-white dark:bg-gray-900 p-6 sm:p-10 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-1 text-center">
+            Create an Account
+          </h2>
+          <p className="text-sm sm:text-md text-gray-500 dark:text-gray-400 mb-6 text-center">
+            Join us today by entering your details below.
+          </p>
 
-        {/* Form Section */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">Create an Account</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Join us today by entering your details below.</p>
-
-          <form onSubmit={handleSignUp} className="space-y-4.5">
-            {/* Profile Photo Icon (centered like screenshot) */}
+          <form onSubmit={handleSignUp} className="space-y-5">
+            {/* Profile Photo Icon */}
             <div className="flex justify-center">
               <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
             </div>
@@ -138,19 +132,19 @@ const SignUp = () => {
               />
             </div>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
             {/* Sign Up Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition transform hover:-translate-y-0.5 active:scale-95"
             >
               SIGN UP
             </button>
 
             <p className="text-sm text-center text-gray-500 dark:text-gray-400 mt-3">
-               Already have an account?{' '}
-              <Link to="/login" className="text-blue-600 hover:underline">
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-600 hover:underline dark:text-blue-400">
                 Log In
               </Link>
             </p>
