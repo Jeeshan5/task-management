@@ -82,7 +82,7 @@ const SignUp = () => {
     <AuthLayout>
       <div className="w-full max-w-xl mx-auto">
         {/* Top Left Heading */}
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Task Manager</h1>
+        
 
         {/* Form Section */}
         <div>
