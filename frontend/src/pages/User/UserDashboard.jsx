@@ -36,9 +36,9 @@ const UserDashboard = () => {
     ]);
 
     setBarChartData([
-      { priority: "Low", count: taskPriorityLevels.Low || 0 },
-      { priority: "Medium", count: taskPriorityLevels.Medium || 0 },
-      { priority: "High", count: taskPriorityLevels.High || 0 },
+      { priority: "low", count: taskPriorityLevels.low || 0 },
+      { priority: "medium", count: taskPriorityLevels.medium || 0 },
+      { priority: "high", count: taskPriorityLevels.high || 0 },
     ]);
   };
 

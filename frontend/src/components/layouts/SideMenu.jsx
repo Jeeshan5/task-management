@@ -37,11 +37,17 @@ const SideMenu = ({ activeMenu }) => {
           src={user?.profileImageUrl || "/placeholder-user.jpg"}
           className="w-20 h-20 bg-slate-400 rounded-full object-cover"
         />
-        {user?.role === "admin" && (
-          <div className="text-[10px] font-medium text-white bg-primary px-3 py-0.5 rounded mt-1">
-            Admin
-          </div>
-        )}
+       {user?.role && (
+  <div
+    className={`text-[10px] font-medium text-white px-3 py-0.5 rounded mt-1 ${
+      user.role === "admin" ? "bg-purple-600" : "bg-blue-500"
+    }`}
+  >
+    {user.role === "admin" ? "Admin" : "User"}
+  </div>
+)}
+
+
         <h5 className="text-gray-950 font-medium leading-6 mt-3">
           {user?.name || ""}
         </h5>

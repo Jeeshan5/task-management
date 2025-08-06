@@ -25,32 +25,7 @@ const App = () => {
   return (
     <UserProvider>
       <Router>
-        <Routes>
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-
-          {/* Root route with redirection logic */}
-          <Route path="/" element={<Root />} />
-
-          {/* Admin Routes */}
-          <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/create-task" element={<CreateTask />} />
-            <Route path="/admin/manage-users" element={<ManageUsers />} />
-            <Route path="/admin/tasks" element={<ManageTasks />} />
-          </Route>
-
-          {/* User Routes */}
-          <Route element={<PrivateRoute allowedRoles={['member']} />}>
-            <Route path="/user/dashboard" element={<UserDashboard />} />
-            <Route path="/user/tasks-details" element={<ViewTaskDetails />} />
-            <Route path="/user/my-tasks" element={<MyTasks />} />
-          </Route>
-
-          {/* Catch-all route */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <AppRoutes />
       </Router>
 
       <Toaster
@@ -68,18 +43,49 @@ const App = () => {
 
 export default App;
 
-const Root = () => {
+const AppRoutes = () => {
   const { user, loading } = useContext(UserContext);
 
   if (loading) {
     return <div className="text-center mt-20 text-gray-500">Loading...</div>;
   }
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
+  return (
+    <Routes>
+      {/* Auth Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
 
-  return user.role === "admin"
-    ? <Navigate to="/admin/dashboard" />
-    : <Navigate to="/user/dashboard" />;
+      {/* Root route with role-based redirect */}
+      <Route path="/" element={<RoleRedirect user={user} />} />
+
+      {/* Admin Routes */}
+      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/create-task" element={<CreateTask />} />
+        <Route path="/admin/manage-users" element={<ManageUsers />} />
+        <Route path="/admin/tasks" element={<ManageTasks />} />
+      </Route>
+
+      {/* User Routes */}
+      <Route element={<PrivateRoute allowedRoles={['member']} />}>
+        <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/user/tasks-details" element={<ViewTaskDetails />} />
+        <Route path="/user/my-tasks" element={<MyTasks />} />
+        <Route path="/user/tasks/:id" element={<ViewTaskDetails />} />
+
+
+
+      </Route>
+
+      {/* Catch-all route */}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
+
+const RoleRedirect = ({ user }) => {
+  if (!user) return <Navigate to="/login" />;
+  if (user.role === 'admin') return <Navigate to="/admin/dashboard" />;
+  return <Navigate to="/user/dashboard" />;
 };

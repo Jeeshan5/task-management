@@ -36,9 +36,9 @@ const TaskListTable = ({ tableData = [] }) => {
             <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Title</th>
             <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Status</th>
             <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Priority</th>
-            <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Assigned To</th>
+            {/* <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Assigned To</th> */}
             <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Due Date</th>
-            <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Created By</th>
+            {/* <th className="py-3 px-4 text-gray-800 font-medium text-[13px]">Created By</th> */}
           </tr>
         </thead>
         <tbody>
@@ -58,15 +58,17 @@ const TaskListTable = ({ tableData = [] }) => {
                     {task.priority}
                   </span>
                 </td>
-                <td className="py-4 px-4 text-[13px] text-gray-600">
-                  {task.assignedTo?.name || "—"}
-                </td>
+                {/* <td className="py-4 px-4 text-[13px] text-gray-600">
+  {Array.isArray(task.assignedTo) && task.assignedTo.length > 0
+    ? task.assignedTo.map((user) => user.name).join(", ")
+    : "—"}
+</td> */}
                 <td className="py-4 px-4 text-[13px] text-gray-600">
                   {task.dueDate ? moment(task.dueDate).format("DD MMM YYYY") : "—"}
                 </td>
-                <td className="py-4 px-4 text-[13px] text-gray-600">
+                {/* <td className="py-4 px-4 text-[13px] text-gray-600">
                   {task.createdBy?.name || "—"}
-                </td>
+                </td> */}
               </tr>
             ))
           ) : (

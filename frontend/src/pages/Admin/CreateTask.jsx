@@ -147,7 +147,7 @@ const CreateTask = () => {
           description: taskInfo.description,
           priority: taskInfo.priority,
           dueDate: taskInfo.dueDate ? moment(taskInfo.dueDate).format("YYYY-MM-DD") : null,
-          assignedTo: taskInfo?.assignedTo?.map((item) => item.id) || [],
+          assignedTo: taskInfo?.assignedTo?.map((item) => item._id) || [],
           todoChecklist: taskInfo?.todoChecklist?.map((item) => item.text) || [],
           attachments: taskInfo?.attachments || []
         });
