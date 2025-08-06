@@ -343,7 +343,7 @@ const getUserDashboardData = async (req, res) => {
         taskDistribution["All"] = totalTasks;
 
         //task priority levels for the user
-        const taskPriorities = ["Low", "Medium", "High"];
+        const taskPriorities = ["low", "medium", "high"];
         const taskPriorityLevelsRaw = await Task.aggregate([
             { $match: { assignedTo: userId } },
             {
