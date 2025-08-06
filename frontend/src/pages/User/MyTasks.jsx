@@ -6,7 +6,7 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { toast } from "react-toastify";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import TaskStatusTabs from "../../components/TaskStatusTabs";
-import TaskCard from "../../components/cards/TaskCard";
+import TaskCard from "../../components/Cards/TaskCard";
 
 const MyTasks = () => {
   const [allTasks, setAllTasks] = useState([]);
