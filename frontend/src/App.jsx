@@ -19,6 +19,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Login from './pages/Auth/Login';
 import SignUp from './pages/Auth/SignUp';
 import UserProvider, { UserContext } from './context/userContext';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
@@ -51,6 +52,16 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
+
+      <Toaster
+        toastOptions={{
+          className: 'bg-gray-800 text-white',
+          style: {
+            fontSize: '16px',
+            padding: '16px',
+          },
+        }}
+      />
     </UserProvider>
   );
 };

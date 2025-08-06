@@ -33,9 +33,9 @@ const SideMenu = ({ activeMenu }) => {
     <div className="w-full h-[calc(100vh-61px)] bg-white border-r border-gray-200/50 sticky top-[61px]">
       <div className="flex flex-col items-center justify-center mb-7 pt-5">
         <img
-          alt="Profile Image"
-          src={user?.profileImageUrl || ""}
-          className="w-20 h-20 bg-slate-400 rounded-full"
+          alt="Profile"
+          src={user?.profileImageUrl || "/placeholder-user.jpg"}
+          className="w-20 h-20 bg-slate-400 rounded-full object-cover"
         />
         {user?.role === "admin" && (
           <div className="text-[10px] font-medium text-white bg-primary px-3 py-0.5 rounded mt-1">
