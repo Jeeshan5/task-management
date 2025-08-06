@@ -187,7 +187,7 @@ const ViewTaskDetails = () => {
             {/* Attachments section from screenshots */}
             {task?.attachments?.length > 0 && (
               <div className="mt-2">
-                <label className="text-xs font-medium text-slate-500 font-medium text-slate-500">
+                <label className="text-xs font-medium text-slate-500">
                   Attachments
                 </label>
                 {task.attachments.map((link, index) => (
